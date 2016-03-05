@@ -1,0 +1,42 @@
+import numpy as np
+import random
+import sys
+my_data = np.genfromtxt('/root/generated_data/generated_data.csv', delimiter=',')
+row = len(my_data)
+coloum = len(my_data[0])
+random.shuffle(my_data)
+w = np.zeros((coloum))
+w = w.reshape(coloum,1)
+alpha = 1
+prediction = 0
+batch_size = 10
+batch_data=[]
+iteration = int(sys.argv[1])
+for i in xrange(0,row,batch_size):
+	batch_data.append(my_data[i:i+batch_size])
+for j in range(iteration):
+	for  i in range(len(batch_data)):
+    		batch_array = batch_data[i]
+    		random.shuffle(batch_array)
+    		row_i = len(batch_array)
+    		coloum_i = len(batch_array[0])
+		fetures = batch_array[:,0:coloum_i-1]
+		Y = batch_array[:,[coloum_i-1]]
+		new_coloum = np.ones((row_i,1))
+		X = np.append(new_coloum,fetures,1)
+		alpha_i = alpha/(row*np.sqrt(i+1))
+		prediction = np.dot(X,w)
+		error_x1 = (prediction -Y)*X[:,[0]]
+		error_x2 = (prediction -Y)*X[:,[1]]
+		error_x3 = (prediction -Y)*X[:,[2]]
+		w[0] = w[0] - alpha_i *error_x1.sum()
+		w[1] = w[1] - alpha_i *error_x2.sum()
+		w[2] = w[2] - alpha_i *error_x3.sum()
+		#print "for batch " ,i,w
+print "for batch_size ", batch_size 
+print "for iteration ", iteration
+print "weights", w
+print "slope in d1",error_x1.sum()
+print "slope in d2",error_x2.sum()
+print "slope in d3",error_x3.sum()
+print "alpha value",alpha_i
