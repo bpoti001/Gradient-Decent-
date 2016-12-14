@@ -14,4 +14,6 @@ err = (prediction -Y)*X
 
 The Code is availabe in the [ALGO](https://github.com/bpoti001/Gradient-Descent/tree/master/algo) Directory 
 The [Batch_GD_1](https://github.com/bpoti001/Gradient-Descent/blob/master/algo/batch_gd_1.py) file does batch gradient decent for 3 parameters. 
+
+
 File [Batch_GD_2](https://github.com/bpoti001/Gradient-Descent/blob/master/algo/batch_gd_2.py),does same thing but coded using vector representation. 
